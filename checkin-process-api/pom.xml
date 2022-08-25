@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>1160155d-6e79-4b1f-9400-5176d47f73b8</groupId>
+		<artifactId>solutions-parent-pom</artifactId>
+		<version>1.0.1</version>
+		<relativePath>../parent-pom/pom.xml</relativePath>
+	</parent>
+
+	<groupId>com.mycompany</groupId>
+	<artifactId>checkin-process-api</artifactId>
+	<version>1.0.0</version>
+	<packaging>mule-application</packaging>
+
+	<name>checkin-process-api</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<app.runtime>4.4.0-20220722</app.runtime>
+		<mule.maven.plugin.version>3.6.3</mule.maven.plugin.version>
+	</properties>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
+			<plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<version>${mule.maven.plugin.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <configuration>
+                  	<includes>
+				          <include>**/*.yaml</include>
+				        </includes>
+                	<nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>p12</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>crt</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>pem</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+            <plugin>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<configuration>
+					<cloudHubDeployment>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<muleVersion>4.4.0</muleVersion>
+						<!-- <connectedAppClientId>${ap.clientid}</connectedAppClientId> <connectedAppClientSecret>${ap.clientsecret}</connectedAppClientSecret> 
+							<connectedAppGrantType>client_credentials</connectedAppGrantType> -->
+						<!-- <username>${username}</username> <password>${password}</password> -->
+						<server>cloudhub-deploy</server>
+						<businessGroupId>${businessGroupId}</businessGroupId>
+						<applicationName>${applicationName}</applicationName>
+						<environment>${environment}</environment>
+						<objectStoreV2>true</objectStoreV2>
+						<persistentQueues>false</persistentQueues>
+						<workers>1</workers>
+						<workerType>MICRO</workerType>
+						<properties>
+							<api.id>${api.id}</api.id>
+							<encrypt.key>${encrypt.key}</encrypt.key>
+							<anypoint.platform.client_id>${client_id}</anypoint.platform.client_id>
+							<anypoint.platform.client_secret>${client_secret}</anypoint.platform.client_secret>
+						</properties>
+					</cloudHubDeployment>
+					<classifier>mule-application</classifier>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-http-connector</artifactId>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.connectors</groupId>
+			<artifactId>mule-sockets-connector</artifactId>
+			<version>1.2.2</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>1160155d-6e79-4b1f-9400-5176d47f73b8</groupId>
+			<artifactId>check-in-process-api</artifactId>
+			<version>1.0.0</version>
+			<classifier>oas</classifier>
+			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-apikit-module</artifactId>
+			<version>1.6.1</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+            <groupId>com.mulesoft.modules</groupId>
+            <artifactId>mule-secure-configuration-property-module</artifactId>
+            <classifier>mule-plugin</classifier>
+        </dependency>
+	</dependencies>
+
+</project>
