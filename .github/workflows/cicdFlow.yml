@@ -105,6 +105,5 @@ jobs:
         AUTHOR: "Pruthvi Raj Krishnam"
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn deploy -DmuleDeploy -Dap.clientid=${{ secrets.AP_CLIENT_ID }} \
-        -Dap.clientsecret=${{ secrets.AP_CLIENT_SECRET }}
+        mvn deploy -DmuleDeploy -Dap.clientid=${{ secrets.AP_CLIENT_ID }} -Dap.clientsecret=${{ secrets.AP_CLIENT_SECRET }} -DbusinessGroupId="1160155d-6e79-4b1f-9400-5176d47f73b8" -Dencrypt.key="secure12345" -Denvironment="dev" -Dapi.id="18086606" -DapplicationName="checkin-api-26aug"  -Dclient_id=-"44696678d0a94991b301707962cebf5c" -Dclient_secret="fe8e850f2182494e8A6729f9E79550B6"
   
